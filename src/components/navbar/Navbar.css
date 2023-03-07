@@ -1,0 +1,49 @@
+.navbar-logo {
+    color: yellow;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.cart-count {
+    font-size: 14px;
+    color: #ff5500;
+}
+
+.btn-toggler:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.nav-link-custom:hover {
+    color: white;
+}
+
+@media only screen and (max-width: 992px) {
+    .navbar-logo {
+        font-size: 70px;
+    }
+
+    .menu-icon {
+        font-size: 70px;
+    }
+
+    #nav1 {
+        font-size: 50px;
+    }
+
+    .subcategories {
+        font-size: 40px;
+    }
+
+    #nav2 {
+        font-size: 50px;
+    }
+
+    .cart-count {
+        font-size: 30px;
+    }
+
+    .navbar-dropdown {
+        width: 300px;
+        font-size: 35px;
+    }
+}
