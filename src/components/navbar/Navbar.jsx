@@ -1,11 +1,21 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Category from '../category/Category';
+import Subcategory from '../subcategory/Subcategory';
 import './Navbar.css';
 
 function Navbar() {
-    const categories = [ 
-        "Fruits", 
-        "Vegetables"
-    ];
+    const [categories, setCategories] = useState([]);
+    const [subcategories, setSubcategories] = useState([]);
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/navbar/index")
+            .then((res) => res.json())
+            .then((data) => {
+                setCategories(data.categories);
+                setSubcategories(data.subcategories);
+            });
+    }, []);
 
     return (
         <div className="container-fluid bg-dark py-2 fixed-top">
@@ -31,16 +41,9 @@ function Navbar() {
                         </div>
 
                         {/* CATEGORIES */}
-                        {categories.map((category) => (
-                            <div className="dropdown col-lg">
-                                <Link className="nav-link nav-link-custom" to={ "/" + category } role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {category}
-                                </Link>
-                                <ul className="dropdown-menu dropdown-menu-dark rounded-0 subcategories">
-                                        <li className="border-bottom border-secondary"></li>
-                                </ul>
-                            </div>
-                        ))}
+                        {categories.map((category) => 
+                            <Category key={category.id} category={category} subcategories={subcategories}/>
+                        )}
 
                         {/* ABOUT */}
                         <div className="col-lg">
@@ -61,7 +64,7 @@ function Navbar() {
 
                         {/* LOGIN */}
                         <div className="col">
-                            <a className="nav-link nav-link-custom d-flex align-items-center" href="#" onclick="modalSignIn.show()">
+                            <a className="nav-link nav-link-custom d-flex align-items-center" href="#">
                                 <i className="bi bi-person-circle d-inline me-1"></i> 
                                 <span className="d-none d-sm-none d-md-none d-lg-block">Login</span>
                             </a>

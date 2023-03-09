@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Vegetables from './pages/Vegetables';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,8 +17,8 @@ root.render(
       <Navbar/>
       <Routes>
         <Route exact path="/" element={ <Home/> }/>
-        <Route path="/Fruits" element={ <Fruits/> }/>
-        <Route path="/Vegetables" element={ <Vegetables/> }/>
+        <Route path="/Fruits/:subcategory" element={ <Fruits/> }/>
+        <Route path="/Vegetables/:subcategory" element={ <Vegetables/> }/>
       </Routes>
     </Router>
   </React.StrictMode>
