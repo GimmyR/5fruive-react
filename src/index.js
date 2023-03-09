@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar';
 import Fruits from './pages/Fruits';
 import Home from './pages/Home';
 import Vegetables from './pages/Vegetables';
@@ -9,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import ModalSignIn from './components/ModalSignIn';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +21,7 @@ root.render(
         <Route path="/Fruits/:subcategory" element={ <Fruits/> }/>
         <Route path="/Vegetables/:subcategory" element={ <Vegetables/> }/>
       </Routes>
+      <ModalSignIn/>
     </Router>
   </React.StrictMode>
 );

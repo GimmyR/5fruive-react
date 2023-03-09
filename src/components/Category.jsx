@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Subcategory from "../subcategory/Subcategory";
+import Subcategory from "./Subcategory";
 
 function Category({ category, subcategories }) {
     return (

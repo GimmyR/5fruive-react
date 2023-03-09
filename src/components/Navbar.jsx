@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Category from '../category/Category';
-import Subcategory from '../subcategory/Subcategory';
-import './Navbar.css';
+import Category from './Category';
+import Subcategory from './Subcategory';
+import '../styles/Navbar.css';
 
 function Navbar() {
     const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
+    const [account, setAccount] = useState(null);
+
+    const login = function() {
+        console.log("LOGIN ?");
+    };
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/navbar/index")
@@ -14,6 +19,7 @@ function Navbar() {
             .then((data) => {
                 setCategories(data.categories);
                 setSubcategories(data.subcategories);
+                setAccount(data.account);
             });
     }, []);
 
@@ -63,12 +69,38 @@ function Navbar() {
                         </div>
 
                         {/* LOGIN */}
-                        <div className="col">
-                            <a className="nav-link nav-link-custom d-flex align-items-center" href="#">
-                                <i className="bi bi-person-circle d-inline me-1"></i> 
-                                <span className="d-none d-sm-none d-md-none d-lg-block">Login</span>
-                            </a>
-                        </div>
+                        {account != null ?
+                            <div className="dropdown col">
+                                <a className="nav-link nav-link-custom d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                                    <i className="bi bi-person-circle me-1"></i> 
+                                    <span className="d-none d-sm-none d-md-none d-lg-block">{ account.username }</span>
+                                </a>
+                                <ul className="dropdown-menu dropdown-menu-dark navbar-dropdown text-center">
+                                    <li>
+                                        <a className="dropdown-item" href="/purchase/">
+                                            <i className="bi bi-receipt"></i> Purchases
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">
+                                            <i className="bi bi-gear"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className="dropdown-item" href="#" onclick="signOut()">
+                                            <i className="bi bi-box-arrow-right"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        :
+                            <div className="col">
+                                <Link onClick={() => login()} className="nav-link nav-link-custom d-flex align-items-center" to="#" data-bs-toggle="modal" data-bs-target="#modal-sign-in">
+                                    <i className="bi bi-person-circle d-inline me-1"></i> 
+                                    <span className="d-none d-sm-none d-md-none d-lg-block">Login</span>
+                                </Link>
+                            </div>
+                        }
 
                         {/* CART */}
                         <div className="col">
