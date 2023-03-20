@@ -4,7 +4,7 @@ import Category from './Category';
 import Subcategory from './Subcategory';
 import '../styles/Navbar.css';
 
-function Navbar() {
+function Navbar({ cartState }) {
     const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
     const [account, setAccount] = useState(null);
@@ -14,12 +14,18 @@ function Navbar() {
     };
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/navbar/index")
-            .then((res) => res.json())
+        fetch("http://127.0.0.1:8000/navbar/index", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ cartSession: sessionStorage.getItem("cartSession") })
+        }).then((res) => res.json())
             .then((data) => {
                 setCategories(data.categories);
                 setSubcategories(data.subcategories);
                 setAccount(data.account);
+                if(data.cartCount != null);
+                    cartState.setCart(data.cartCount);
             });
     }, []);
 
@@ -106,7 +112,7 @@ function Navbar() {
                         <div className="col">
                             <a className="nav-link nav-link-custom d-flex align-items-center" href="/cart/">
                                 <i className="bi bi-cart4 position-relative me-1"></i>
-                                <span id="cart-count" className="cart-count">0</span>
+                                <span id="cart-count" className="cart-count">{ cartState.cart }</span>
                             </a>
                         </div>
                     </div>

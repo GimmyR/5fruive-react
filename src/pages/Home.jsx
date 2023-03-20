@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import Product from "../components/Product";
 import '../styles/Home.css';
 
-function Home() {
+function Home({ cartState }) {
     const [stocks, setStocks] = useState([]);
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/index/api")
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setStocks(data.stocks);
             });
     }, []);
@@ -25,7 +24,7 @@ function Home() {
                     {stocks.length > 0 ?
                         <div className="row">
                             {stocks.map((stock) => (
-                                <Product key={stock.product.id} stock={stock}/>
+                                <Product key={stock.product.id} stock={stock} cartState={cartState}/>
                             ))}
                         </div>
                     :

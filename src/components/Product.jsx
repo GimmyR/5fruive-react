@@ -1,4 +1,49 @@
-function Product({ stock }) {
+import { useState } from "react";
+
+function Product({ stock, cartState }) {
+    const [quantity, setQuantity] = useState(1);
+    const [adding, setAdding] = useState(0);
+
+    const decreaseQuantity = function() {
+        let tmp = validateQuantity(quantity - 1, 1, stock.remainingQuantity);
+        setQuantity(tmp);
+    };
+
+    const increaseQuantity = function() {
+        let tmp = validateQuantity(quantity + 1, 1, stock.remainingQuantity);
+        setQuantity(tmp);
+    };
+
+    const handleQuantity = function(e) {
+        let tmp = validateQuantity(e.target.value, 1, stock.remainingQuantity);
+        setQuantity(tmp);
+    };
+
+    const validateQuantity = function(quantity, min, max) {
+        if(quantity < min)
+            return min;
+        else if(quantity > max)
+            return max;
+        else return quantity;
+    };
+
+    const addToCart = function() {
+        let obj = { id: stock.product.id, quantity: quantity };
+
+        fetch("http://127.0.0.1:8000/cart/add-product/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(obj)
+        }).then((res) => res.json())
+            .then((data) => {
+                if(data.cartSession != null && data.cartCount != null) {
+                    sessionStorage.setItem("cartSession", data.cartSession);
+                    cartState.setCart(data.cartCount);
+                }
+            });
+    };
+
     return (
         <div className="col-12 col-sm-12 col-md-12 col-lg-3 product">
             <div className="col card-product">
@@ -20,19 +65,19 @@ function Product({ stock }) {
                     <i className="bi bi-tag-fill card-price"></i> { stock.product.price } Ar
                 </div>
                 <div className="col input-group">
-                    <button type="button" className="btn btn-number-product rounded-0">
+                    <button onClick={() => decreaseQuantity()} type="button" className="btn btn-secondary button-number-product rounded-0">
                         <i className="bi bi-dash-lg"></i>
                     </button>
-                    <input type="number" defaultValue="1" min="1" className="form-control input-quantity" id={ "product-" + stock.product.id + "-quantity" }/>
-                    <button type="button" className="btn btn-number-product rounded-0">
+                    <input type="number" value={ quantity } onChange={(e) => handleQuantity(e)} min="1" className="form-control input-quantity"/>
+                    <button onClick={() => increaseQuantity()} type="button" className="btn btn-secondary button-number-product rounded-0">
                         <i className="bi bi-plus-lg"></i>
                     </button>
                 </div>
                 <div className="col">
-                    <button type="button" className="col-12 rounded-0 btn btn-primary btn-add-cart">
-                        <i id={ "icon-plus-" + stock.product.id } className="bi bi-plus-lg icon-plus"></i> 
-                        <i id={ "icon-check-" + stock.product.id } className="bi bi-check-lg icon-check"></i>
-                        <span id={ "icon-spinner-" + stock.product.id } className="spinner-border spinner-border-sm icon-spinner" role="status" aria-hidden="true"></span> Add to cart
+                    <button onClick={() => addToCart()} type="button" className="col-12 rounded-0 btn btn-primary btn-add-cart">
+                        <i className={"bi bi-plus-lg " + (adding == 0 ? "d-inline" : "d-none")}></i> 
+                        <i className={"bi bi-check-lg " + (adding == 1 ? "d-inline" : "d-none")}></i>
+                        <span className={"spinner-border spinner-border-sm " + (adding == 2 ? "d-inline-block" : "d-none")} role="status" aria-hidden="true"></span> Add to cart
                     </button>
                 </div>
             </div>
