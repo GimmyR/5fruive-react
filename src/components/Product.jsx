@@ -28,7 +28,11 @@ function Product({ stock, cartState }) {
     };
 
     const addToCart = function() {
-        let obj = { id: stock.product.id, quantity: quantity };
+        let obj = { 
+            id: stock.product.id, 
+            quantity: quantity,
+            cartSession: sessionStorage.getItem("cartSession") 
+        };
 
         fetch("http://127.0.0.1:8000/cart/add-product/api", {
             method: "POST",
@@ -37,10 +41,10 @@ function Product({ stock, cartState }) {
             body: JSON.stringify(obj)
         }).then((res) => res.json())
             .then((data) => {
-                if(data.cartSession != null && data.cartCount != null) {
+                if(data.cartSession != null)
                     sessionStorage.setItem("cartSession", data.cartSession);
+                if(data.cartCount != null)
                     cartState.setCart(data.cartCount);
-                }
             });
     };
 
