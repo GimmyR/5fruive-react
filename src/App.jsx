@@ -9,16 +9,31 @@ import ModalSignIn from './components/ModalSignIn';
 
 function App() {
 	const [cart, setCart] = useState(0);
+	const cartST = { cart: cart, setCart: setCart };
+
+    const [account, setAccount] = useState(null);
+	const accountST = { account: account, setAccount: setAccount };
+
+	const fetchAccount = function() {
+        fetch("http://127.0.0.1:8000/account/auth/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ accSession: sessionStorage.getItem("accSession") })
+        }).then((res) => res.json())
+            .then((data) => {
+                accountST.setAccount(data.account);
+            });
+    };
 	
 	return (
 		<Router>
-	      <Navbar cartState={ {cart: cart, setCart: setCart} }/>
+	      <Navbar cartST={cartST} accountST={accountST} fetchAccount={fetchAccount}/>
 	      <Routes>
-	        <Route exact path="/" element={ <Home cartState={ {cart: cart, setCart: setCart} }/> }/>
+	        <Route exact path="/" element={ <Home cartST={cartST}/> }/>
 	        <Route path="/Fruits/:subcategory" element={ <Fruits/> }/>
 	        <Route path="/Vegetables/:subcategory" element={ <Vegetables/> }/>
 	      </Routes>
-	      <ModalSignIn/>
+	      <ModalSignIn fetchAccount={fetchAccount}/>
 	    </Router>
 	);
 }

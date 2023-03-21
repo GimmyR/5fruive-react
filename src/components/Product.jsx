@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Product({ stock, cartState }) {
+function Product({ stock, cartST }) {
     const [quantity, setQuantity] = useState(1);
     const [adding, setAdding] = useState(0);
 
@@ -37,14 +37,13 @@ function Product({ stock, cartState }) {
         fetch("http://127.0.0.1:8000/cart/add-product/api", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            credentials: "include",
             body: JSON.stringify(obj)
         }).then((res) => res.json())
             .then((data) => {
                 if(data.cartSession != null)
                     sessionStorage.setItem("cartSession", data.cartSession);
-                if(data.cartCount != null)
-                    cartState.setCart(data.cartCount);
+                if(data.cartCount != undefined && data.cartCount != null)
+                    cartST.setCart(data.cartCount);
             });
     };
 

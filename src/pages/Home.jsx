@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Product from "../components/Product";
 import '../styles/Home.css';
 
-function Home({ cartState }) {
+function Home({ cartST }) {
     const [stocks, setStocks] = useState([]);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ function Home({ cartState }) {
                     {stocks.length > 0 ?
                         <div className="row">
                             {stocks.map((stock) => (
-                                <Product key={stock.product.id} stock={stock} cartState={cartState}/>
+                                <Product key={stock.product.id} stock={stock} cartST={cartST}/>
                             ))}
                         </div>
                     :

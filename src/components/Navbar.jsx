@@ -4,30 +4,45 @@ import Category from './Category';
 import Subcategory from './Subcategory';
 import '../styles/Navbar.css';
 
-function Navbar({ cartState }) {
+function Navbar({ cartST, accountST, fetchAccount }) {
     const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
-    const [account, setAccount] = useState(null);
 
-    const login = function() {
-        console.log("LOGIN ?");
-    };
-
-    useEffect(() => {
+    const fetchBase = function() {
         fetch("http://127.0.0.1:8000/navbar/index", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            credentials: "include",
             body: JSON.stringify({ cartSession: sessionStorage.getItem("cartSession") })
         }).then((res) => res.json())
             .then((data) => {
                 setCategories(data.categories);
                 setSubcategories(data.subcategories);
-                setAccount(data.account);
-                if(data.cartCount != null);
-                    cartState.setCart(data.cartCount);
+                if(data.cartCount != undefined && data.cartCount != null)
+                    cartST.setCart(data.cartCount);
             });
+    };
+
+    useEffect(() => {
+        fetchBase();
+        fetchAccount();
     }, []);
+
+    const signOut = function() {
+        const token = { accSession: sessionStorage.getItem("accSession") };
+
+        fetch("http://127.0.0.1:8000/account/sign-out/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(token)
+        }).then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if(!data.error) {
+                    sessionStorage.removeItem("accSession");
+                    fetchAccount();
+                }
+            });
+    };
 
     return (
         <div className="container-fluid bg-dark py-2 fixed-top">
@@ -75,11 +90,11 @@ function Navbar({ cartState }) {
                         </div>
 
                         {/* LOGIN */}
-                        {account != null ?
+                        {accountST.account != null ?
                             <div className="dropdown col">
                                 <a className="nav-link nav-link-custom d-flex align-items-center" href="#" data-bs-toggle="dropdown">
                                     <i className="bi bi-person-circle me-1"></i> 
-                                    <span className="d-none d-sm-none d-md-none d-lg-block">{ account.username }</span>
+                                    <span className="d-none d-sm-none d-md-none d-lg-block">{ accountST.account.username }</span>
                                 </a>
                                 <ul className="dropdown-menu dropdown-menu-dark navbar-dropdown text-center">
                                     <li>
@@ -93,7 +108,7 @@ function Navbar({ cartState }) {
                                         </a>
                                     </li>
                                     <li>
-                                        <a className="dropdown-item" href="#" onclick="signOut()">
+                                        <a className="dropdown-item" href="#" onClick={() => signOut()}>
                                             <i className="bi bi-box-arrow-right"></i> Sign Out
                                         </a>
                                     </li>
@@ -101,7 +116,7 @@ function Navbar({ cartState }) {
                             </div>
                         :
                             <div className="col">
-                                <Link onClick={() => login()} className="nav-link nav-link-custom d-flex align-items-center" to="#" data-bs-toggle="modal" data-bs-target="#modal-sign-in">
+                                <Link className="nav-link nav-link-custom d-flex align-items-center" to="#" data-bs-toggle="modal" data-bs-target="#modal-sign-in">
                                     <i className="bi bi-person-circle d-inline me-1"></i> 
                                     <span className="d-none d-sm-none d-md-none d-lg-block">Login</span>
                                 </Link>
@@ -112,7 +127,7 @@ function Navbar({ cartState }) {
                         <div className="col">
                             <a className="nav-link nav-link-custom d-flex align-items-center" href="/cart/">
                                 <i className="bi bi-cart4 position-relative me-1"></i>
-                                <span id="cart-count" className="cart-count">{ cartState.cart }</span>
+                                <span id="cart-count" className="cart-count">{ cartST.cart }</span>
                             </a>
                         </div>
                     </div>
