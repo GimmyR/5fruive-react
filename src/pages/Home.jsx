@@ -2,16 +2,23 @@ import { useEffect, useState } from "react";
 import Product from "../components/Product";
 import '../styles/Home.css';
 
-function Home({ cartST }) {
+function Home({ cartST, subcategoryId }) {
     const [stocks, setStocks] = useState([]);
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:8000/index/api")
-            .then((res) => res.json())
+    const fetchStocks = function() {
+        const url = [
+            "http://127.0.0.1:8000/index/api",
+            "http://127.0.0.1:8000/fruits-vegetables/api/" + subcategoryId
+        ];
+
+        fetch((subcategoryId == undefined) ? url[0] : url[1])
+        .then((res) => res.json())
             .then((data) => {
                 setStocks(data.stocks);
             });
-    }, []);
+    };
+
+    useEffect(() => fetchStocks(), []);
 
     return (
         <div className="container">

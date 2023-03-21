@@ -30,8 +30,8 @@ function App() {
 	      <Navbar cartST={cartST} accountST={accountST} fetchAccount={fetchAccount}/>
 	      <Routes>
 	        <Route exact path="/" element={ <Home cartST={cartST}/> }/>
-	        <Route path="/Fruits/:subcategory" element={ <Fruits/> }/>
-	        <Route path="/Vegetables/:subcategory" element={ <Vegetables/> }/>
+	        <Route path="/Fruits/:subcategoryId" element={ <Fruits/> }/>
+	        <Route path="/Vegetables/:subcategoryId" element={ <Vegetables/> }/>
 	      </Routes>
 	      <ModalSignIn fetchAccount={fetchAccount}/>
 	    </Router>

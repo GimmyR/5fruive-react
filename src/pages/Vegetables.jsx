@@ -1,6 +1,11 @@
-function Vegetables() {
+import { useParams } from "react-router-dom";
+import Home from "./Home";
+
+function Vegetables({ cartST }) {
+    const { subcategoryId } = useParams();
+
     return (
-        <h1>Vegetables !</h1>
+        <Home cartST={cartST} subcategoryId={subcategoryId}/>
     );
 }
 
