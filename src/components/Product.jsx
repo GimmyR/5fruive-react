@@ -28,6 +28,8 @@ function Product({ stock, cartST }) {
     };
 
     const addToCart = function() {
+        setAdding(2);
+
         let obj = { 
             id: stock.product.id, 
             quantity: quantity,
@@ -40,10 +42,12 @@ function Product({ stock, cartST }) {
             body: JSON.stringify(obj)
         }).then((res) => res.json())
             .then((data) => {
+                setAdding(1);
                 if(data.cartSession != null)
                     sessionStorage.setItem("cartSession", data.cartSession);
                 if(data.cartCount != undefined && data.cartCount != null)
                     cartST.setCart(data.cartCount);
+                setTimeout(() => setAdding(0), 1000);
             });
     };
 
@@ -68,11 +72,11 @@ function Product({ stock, cartST }) {
                     <i className="bi bi-tag-fill card-price"></i> { stock.product.price } Ar
                 </div>
                 <div className="col input-group">
-                    <button onClick={() => decreaseQuantity()} type="button" className="btn btn-secondary button-number-product rounded-0">
+                    <button onClick={() => decreaseQuantity()} type="button" className="btn btn-dark button-number-product rounded-0">
                         <i className="bi bi-dash-lg"></i>
                     </button>
                     <input type="number" value={ quantity } onChange={(e) => handleQuantity(e)} min="1" className="form-control input-quantity"/>
-                    <button onClick={() => increaseQuantity()} type="button" className="btn btn-secondary button-number-product rounded-0">
+                    <button onClick={() => increaseQuantity()} type="button" className="btn btn-dark button-number-product rounded-0">
                         <i className="bi bi-plus-lg"></i>
                     </button>
                 </div>

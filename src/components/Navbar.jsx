@@ -125,10 +125,10 @@ function Navbar({ cartST, accountST, fetchAccount }) {
 
                         {/* CART */}
                         <div className="col">
-                            <a className="nav-link nav-link-custom d-flex align-items-center" href="/cart/">
+                            <Link className="nav-link nav-link-custom d-flex align-items-center" to="/Cart">
                                 <i className="bi bi-cart4 position-relative me-1"></i>
                                 <span id="cart-count" className="cart-count">{ cartST.cart }</span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
