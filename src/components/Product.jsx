@@ -47,6 +47,8 @@ function Product({ stock, cartST }) {
                     sessionStorage.setItem("cartSession", data.cartSession);
                 if(data.cartCount != undefined && data.cartCount != null)
                     cartST.setCart(data.cartCount);
+                if(data.error && data.status == 456)
+                    sessionStorage.removeItem("cartSession");
                 setTimeout(() => setAdding(0), 1000);
             });
     };

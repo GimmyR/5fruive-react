@@ -16,6 +16,9 @@ function CartProduct({ item, fetchCart }) {
             body: JSON.stringify(obj)
         }).then((res) => res.json())
             .then((data) => {
+                if(data.error && data.status == 456)
+                    sessionStorage.removeItem("cartSession");
+
                 var tmp = quantity - 1;
                 if(tmp < 0)
                     tmp = 0;
@@ -37,6 +40,9 @@ function CartProduct({ item, fetchCart }) {
             body: JSON.stringify(obj)
         }).then((res) => res.json())
             .then((data) => {
+                if(data.error && data.status == 456)
+                    sessionStorage.removeItem("cartSession");
+
                 var tmp = quantity + 1;
                 if(tmp > item.stock.remainingQuantity)
                     tmp = item.stock.remainingQuantity;
@@ -59,7 +65,11 @@ function CartProduct({ item, fetchCart }) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(obj)
         }).then((res) => res.json())
-            .then((data) => fetchCart());
+            .then((data) => {
+                if(data.error && data.status == 456)
+                    sessionStorage.removeItem("cartSession");
+                fetchCart()
+            });
     };
 
     const removeAll = function() {
@@ -74,7 +84,11 @@ function CartProduct({ item, fetchCart }) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(obj)
         }).then((res) => res.json())
-            .then((data) => fetchCart());
+            .then((data) => {
+                if(data.error && data.status == 456)
+                    sessionStorage.removeItem("cartSession");
+                fetchCart()
+            });
     };
 
     return (
