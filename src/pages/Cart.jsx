@@ -19,6 +19,7 @@ function Cart({ cartST }) {
                 if(!data.error) {
                     setCart(data.cart);
                     calculateTotalPrice(data.cart);
+                    cartST.setCart(data.cart.length);
                 }
             });
     };

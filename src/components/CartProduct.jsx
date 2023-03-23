@@ -45,6 +45,38 @@ function CartProduct({ item, fetchCart }) {
             });
     };
 
+    const editQuantity = function(qte) {
+        setQuantity(qte);
+        
+        let obj = { 
+            id: item.stock.product.id, 
+            quantity: qte,
+            cartSession: sessionStorage.getItem("cartSession") 
+        };
+
+        fetch("http://127.0.0.1:8000/cart/edit-product/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(obj)
+        }).then((res) => res.json())
+            .then((data) => fetchCart());
+    };
+
+    const removeAll = function() {
+        let obj = { 
+            id: item.stock.product.id, 
+            quantity: quantity,
+            cartSession: sessionStorage.getItem("cartSession") 
+        };
+
+        fetch("http://127.0.0.1:8000/cart/remove-all-products/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(obj)
+        }).then((res) => res.json())
+            .then((data) => fetchCart());
+    };
+
     return (
         <div className="row py-2">
             <div className="col-12 col-lg-10 offset-lg-1 cart-product">
@@ -87,14 +119,14 @@ function CartProduct({ item, fetchCart }) {
                             <button onClick={() => decreaseQuantity()} type="button" className="btn btn-dark btn-number-product rounded-0">
                                 <i className="bi bi-dash-lg"></i>
                             </button>
-                            <input value={quantity} onChange={(e) => setQuantity(e.target.value)} type="number" className="form-control input-quantity"/>
+                            <input value={quantity} onChange={(e) => editQuantity(e.target.value)} type="number" className="form-control input-quantity"/>
                             <button onClick={() => increaseQuantity()} type="button" className="btn btn-dark btn-number-product rounded-0">
                                 <i className="bi bi-plus-lg"></i>
                             </button>
                         </div>
                     </div>
                     <div className="col-md-2 cart-product-total-price d-flex justify-content-center border border-dark position-relative">
-                        <button className="btn btn-danger rounded-0 position-absolute top-0 end-0" type="button">
+                        <button onClick={() => removeAll()} className="btn btn-danger rounded-0 position-absolute top-0 end-0" type="button">
                             <i className="bi bi-x-lg"></i>
                         </button>
                         <span className="fs-2 fw-bold align-self-center">
