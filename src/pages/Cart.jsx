@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CartProduct from "../components/CartProduct";
+import * as bootstrap from 'bootstrap';
 
 import '../styles/Cart.css';
 
@@ -51,6 +52,25 @@ function Cart({ cartST }) {
             });
     };
 
+    const validateCart = function() {
+        const body = { accSession: sessionStorage.getItem("accSession") };
+
+        fetch("http://127.0.0.1:8000/account/auth/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        }).then((res) => res.json())
+            .then((data) => {
+                if(!data.error) {
+                    if(data.account != null)
+                        document.location.href = "/Validate";
+                } else {
+                    const modalSignIn = new bootstrap.Modal("#modal-sign-in", { keyboard: false });
+                    modalSignIn.show();
+                }
+            });
+    };
+
     return (
         <div className="container-fluid cart-products">
             {cart.map((item) => 
@@ -78,7 +98,7 @@ function Cart({ cartST }) {
                         <div className="row">
                             <button onClick={() => clearCart()} className="btn btn-danger btn-cart col-12 col-lg-2 mb-3" type="button">Clear Cart</button>
                             <button className="btn btn-info btn-cart col-12 col-lg-2 offset-lg-3 mb-3" type="button">Save Cart</button>
-                            <button className="btn btn-primary btn-cart col-12 col-lg-2 offset-lg-3 mb-3" type="button">Validate Cart</button>
+                            <button onClick={() => validateCart()} className="btn btn-primary btn-cart col-12 col-lg-2 offset-lg-3 mb-3" type="button">Validate Cart</button>
                         </div>
                     </div>
                 </div>

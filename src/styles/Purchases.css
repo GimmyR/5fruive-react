@@ -1,0 +1,18 @@
+.purchases {
+    margin-top: 80px;
+    padding: 30px 60px 40px 60px;
+}
+
+@media only screen and (max-width: 992px) {
+    .purchases {
+        margin-top: 160px;
+        padding-top: 60px;
+        padding-bottom: 80px;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .purchases-table {
+        font-size: 25px;
+    }
+}

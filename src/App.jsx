@@ -7,6 +7,9 @@ import Home from './pages/Home';
 import Vegetables from './pages/Vegetables';
 import ModalSignIn from './components/ModalSignIn';
 import Cart from './pages/Cart';
+import Purchases from './pages/Purchases';
+import Purchase from './pages/Purchase';
+import Validate from './pages/Validate';
 
 function App() {
 	const [cart, setCart] = useState(0);
@@ -34,6 +37,9 @@ function App() {
 	        <Route path="/Fruits/:subcategoryId" element={ <Fruits cartST={cartST}/> }/>
 	        <Route path="/Vegetables/:subcategoryId" element={ <Vegetables cartST={cartST}/> }/>
 			<Route path="/Cart" element={ <Cart cartST={cartST}/> }/>
+			<Route path="/Validate" element={ <Validate/> }/>
+			<Route path="/Purchases" element={ <Purchases/> }/>
+			<Route path="/Purchase/:purchaseId" element={ <Purchase/> }/>
 	      </Routes>
 	      <ModalSignIn fetchAccount={fetchAccount}/>
 	    </Router>

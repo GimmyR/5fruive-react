@@ -19,6 +19,7 @@ function Navbar({ cartST, accountST, fetchAccount }) {
                 setSubcategories(data.subcategories);
                 if(data.cartCount != undefined && data.cartCount != null)
                     cartST.setCart(data.cartCount);
+                else cartST.setCart(0);
             });
     };
 
@@ -98,19 +99,19 @@ function Navbar({ cartST, accountST, fetchAccount }) {
                                 </a>
                                 <ul className="dropdown-menu dropdown-menu-dark navbar-dropdown text-center">
                                     <li>
-                                        <a className="dropdown-item" href="/purchase/">
+                                        <Link className="dropdown-item" to="/Purchases">
                                             <i className="bi bi-receipt"></i> Purchases
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a className="dropdown-item" href="#">
+                                        <Link className="dropdown-item" to="#">
                                             <i className="bi bi-gear"></i> Settings
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a className="dropdown-item" href="#" onClick={() => signOut()}>
+                                        <Link className="dropdown-item" to="#" onClick={() => signOut()}>
                                             <i className="bi bi-box-arrow-right"></i> Sign Out
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
