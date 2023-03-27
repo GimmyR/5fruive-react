@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Category from './Category';
-import Subcategory from './Subcategory';
 import '../styles/Navbar.css';
+import * as bootstrap from 'bootstrap';
 
 function Navbar({ cartST, accountST, fetchAccount }) {
     const [categories, setCategories] = useState([]);
@@ -43,6 +43,11 @@ function Navbar({ cartST, accountST, fetchAccount }) {
                     fetchAccount();
                 }
             });
+    };
+
+    const toggleDropdown = function() {
+        const dropdownAccount = new bootstrap.Dropdown("#dropdown-account");
+        dropdownAccount.toggle();
     };
 
     return (
@@ -92,8 +97,8 @@ function Navbar({ cartST, accountST, fetchAccount }) {
 
                         {/* LOGIN */}
                         {accountST.account != null ?
-                            <div className="dropdown col">
-                                <a className="nav-link nav-link-custom d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                            <div id="dropdown-account" className="dropdown col">
+                                <a onClick={() => toggleDropdown()} className="nav-link nav-link-custom d-flex align-items-center" href="#">
                                     <i className="bi bi-person-circle me-1"></i> 
                                     <span className="d-none d-sm-none d-md-none d-lg-block">{ accountST.account.username }</span>
                                 </a>
