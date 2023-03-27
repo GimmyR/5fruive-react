@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Validate() {
+    const navigate = useNavigate();
     const [regions, setRegions] = useState([]);
 
     const [region, setRegion] = useState("");
@@ -36,7 +38,7 @@ function Validate() {
         }).then((res) => res.json())
             .then((data) => {
                 if(!data.error)
-                    document.location.href = "/Purchase/" + data.purchase;
+                    navigate("/Purchase/" + data.purchase);
                 else console.log(data);
             });
     };
