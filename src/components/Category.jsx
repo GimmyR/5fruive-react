@@ -4,9 +4,9 @@ import Subcategory from "./Subcategory";
 function Category({ category, subcategories }) {
     return (
         <div key={ category.id } className="dropdown col-lg">
-            <Link className="nav-link nav-link-custom" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a className="nav-link nav-link-custom" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {category.name}
-            </Link>
+            </a>
             <ul className="dropdown-menu dropdown-menu-dark rounded-0 subcategories">
                 <li className="border-bottom border-secondary"></li>
                 {subcategories.map((subcategory) => 

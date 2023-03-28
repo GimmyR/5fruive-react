@@ -18,6 +18,9 @@ function App() {
     const [account, setAccount] = useState(null);
 	const accountST = { account: account, setAccount: setAccount };
 
+	const [show, setShow] = useState(false);
+	const showST = { show: show, setShow: setShow };
+
 	const fetchAccount = function() {
         fetch("http://127.0.0.1:8000/account/auth/api", {
             method: "POST",
@@ -31,17 +34,17 @@ function App() {
 	
 	return (
 		<Router>
-	      <Navbar cartST={cartST} accountST={accountST} fetchAccount={fetchAccount}/>
+	      <Navbar cartST={cartST} accountST={accountST} fetchAccount={fetchAccount} showST={showST}/>
 	      <Routes>
 	        <Route exact path="/" element={ <Home cartST={cartST}/> }/>
 	        <Route path="/Fruits/:subcategoryId" element={ <Fruits cartST={cartST}/> }/>
 	        <Route path="/Vegetables/:subcategoryId" element={ <Vegetables cartST={cartST}/> }/>
-			<Route path="/Cart" element={ <Cart cartST={cartST}/> }/>
+			<Route path="/Cart" element={ <Cart cartST={cartST} showST={showST}/> }/>
 			<Route path="/Validate" element={ <Validate/> }/>
 			<Route path="/Purchases" element={ <Purchases/> }/>
 			<Route path="/Purchase/:purchaseId" element={ <Purchase/> }/>
 	      </Routes>
-	      <ModalSignIn fetchAccount={fetchAccount}/>
+	      <ModalSignIn fetchAccount={fetchAccount} showST={showST}/>
 	    </Router>
 	);
 }

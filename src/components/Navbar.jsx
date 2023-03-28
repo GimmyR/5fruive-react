@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Category from './Category';
 import '../styles/Navbar.css';
-import * as bootstrap from 'bootstrap';
 
-function Navbar({ cartST, accountST, fetchAccount }) {
+function Navbar({ cartST, accountST, fetchAccount, showST }) {
     const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
 
@@ -43,11 +42,6 @@ function Navbar({ cartST, accountST, fetchAccount }) {
                     fetchAccount();
                 }
             });
-    };
-
-    const toggleDropdown = function() {
-        const dropdownAccount = new bootstrap.Dropdown("#dropdown-account");
-        dropdownAccount.toggle();
     };
 
     return (
@@ -97,8 +91,8 @@ function Navbar({ cartST, accountST, fetchAccount }) {
 
                         {/* LOGIN */}
                         {accountST.account != null ?
-                            <div id="dropdown-account" className="dropdown col">
-                                <a onClick={() => toggleDropdown()} className="nav-link nav-link-custom d-flex align-items-center" href="#">
+                            <div className="dropdown col">
+                                <a className="nav-link nav-link-custom d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-person-circle me-1"></i> 
                                     <span className="d-none d-sm-none d-md-none d-lg-block">{ accountST.account.username }</span>
                                 </a>
@@ -122,7 +116,7 @@ function Navbar({ cartST, accountST, fetchAccount }) {
                             </div>
                         :
                             <div className="col">
-                                <Link className="nav-link nav-link-custom d-flex align-items-center" to="#" data-bs-toggle="modal" data-bs-target="#modal-sign-in">
+                                <Link onClick={() => showST.setShow(true)} className="nav-link nav-link-custom d-flex align-items-center" to="#">
                                     <i className="bi bi-person-circle d-inline me-1"></i> 
                                     <span className="d-none d-sm-none d-md-none d-lg-block">Login</span>
                                 </Link>

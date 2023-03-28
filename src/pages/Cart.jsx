@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import CartProduct from "../components/CartProduct";
-import * as bootstrap from 'bootstrap';
 
 import '../styles/Cart.css';
 import { useNavigate } from "react-router-dom";
 
-function Cart({ cartST }) {
+function Cart({ cartST, showST }) {
     const [totalPrice, setTotalPrice] = useState(0);
     const [cart, setCart] = useState([]);
     const navigate = useNavigate();
@@ -66,10 +65,7 @@ function Cart({ cartST }) {
                 if(!data.error) {
                     if(data.account != null)
                         navigate("/Validate");
-                } else {
-                    const modalSignIn = new bootstrap.Modal("#modal-sign-in", { keyboard: false });
-                    modalSignIn.show();
-                }
+                } else showST.setShow(true);
             });
     };
 
