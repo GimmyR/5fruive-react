@@ -21,7 +21,7 @@ function Home({ cartST, subcategoryId }) {
     useEffect(() => fetchStocks(), [subcategoryId]);
 
     return (
-        <div className="container padding-bottom">
+        <div className="container margin-top">
             <div className="row pt-5">
                 <div className="px-3 products">
                     {/* ALERT */}
