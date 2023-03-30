@@ -18,10 +18,10 @@ function Home({ cartST, subcategoryId }) {
             });
     };
 
-    useEffect(() => fetchStocks());
+    useEffect(() => fetchStocks(), [subcategoryId]);
 
     return (
-        <div className="container">
+        <div className="container padding-bottom">
             <div className="row pt-5">
                 <div className="px-3 products">
                     {/* ALERT */}

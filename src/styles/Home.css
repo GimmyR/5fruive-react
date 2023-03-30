@@ -110,4 +110,8 @@
     .input-quantity, .btn-number-product {
         font-size: 40px;
     }
+
+    .padding-bottom {
+        padding-bottom: 300px;
+    }
 }
