@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import '../styles/ModalSignIn.css';
 import { Modal } from 'react-bootstrap';
+import '../styles/ModalSignIn.css';
 
 function ModalSignIn({ fetchAccount, showST }) {
     const [username, setUsername] = useState("");
@@ -26,25 +26,25 @@ function ModalSignIn({ fetchAccount, showST }) {
     };
 
     return (
-        <Modal show={showST.show} onHide={() => showST.setShow(false)} variant="success">
+        <Modal show={showST.show} onHide={() => showST.setShow(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>Login</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <form>
-                <div className="mb-3">
-                    <label className="form-label modal-sign-in-label">Username</label>
-                    <input value={username} onChange={(e) => setUsername(e.target.value)} id="modal-sign-in-username" type="text" className="form-control modal-sign-in-input" placeholder="ex: JohnDoe"/>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label modal-sign-in-label">Password</label>
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} id="modal-sign-in-password" type="password" className="form-control modal-sign-in-input" placeholder="* * * * * * * * *"/>
-                </div>
-            </form>
+                <form>
+                    <div className="mb-3">
+                        <label className="form-label modal-sign-in-label">Username</label>
+                        <input value={username} onChange={(e) => setUsername(e.target.value)} id="modal-sign-in-username" type="text" className="form-control modal-sign-in-input" placeholder="ex: JohnDoe"/>
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label modal-sign-in-label">Password</label>
+                        <input value={password} onChange={(e) => setPassword(e.target.value)} id="modal-sign-in-password" type="password" className="form-control modal-sign-in-input" placeholder="* * * * * * * * *"/>
+                    </div>
+                </form>
             </Modal.Body>
             <Modal.Footer>
-                <button onClick={() => signUp()} type="button" className="btn btn-info col col-lg-3 modal-sign-in-btn">Sign Up</button>
-                <button onClick={() => signIn()} type="button" className="btn btn-warning col col-lg-3 modal-sign-in-btn">Sign In</button>
+                <button onClick={() => signUp()} type="button" className="btn btn-secondary col col-lg-3 modal-sign-in-btn">Sign Up</button>
+                <button onClick={() => signIn()} type="button" className="btn btn-primary col col-lg-3 modal-sign-in-btn">Sign In</button>
             </Modal.Footer>
         </Modal>
     );

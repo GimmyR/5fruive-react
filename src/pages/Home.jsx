@@ -18,7 +18,7 @@ function Home({ cartST, subcategoryId }) {
             });
     };
 
-    useEffect(() => fetchStocks(), []);
+    useEffect(() => fetchStocks());
 
     return (
         <div className="container">
