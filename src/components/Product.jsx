@@ -83,7 +83,7 @@ function Product({ stock, cartST }) {
                     </button>
                 </div>
                 <div className="col">
-                    <button onClick={() => addToCart()} type="button" className="col-12 rounded-0 btn btn-primary btn-add-cart">
+                    <button onClick={() => addToCart()} type="button" className="col-12 rounded-0 btn-add-cart">
                         <i className={"bi bi-plus-lg " + (adding == 0 ? "d-inline" : "d-none")}></i> 
                         <i className={"bi bi-check-lg " + (adding == 1 ? "d-inline" : "d-none")}></i>
                         <span className={"spinner-border spinner-border-sm " + (adding == 2 ? "d-inline-block" : "d-none")} role="status" aria-hidden="true"></span> Add to cart

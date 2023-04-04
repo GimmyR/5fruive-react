@@ -10,6 +10,7 @@ import Cart from './pages/Cart';
 import Purchases from './pages/Purchases';
 import Purchase from './pages/Purchase';
 import Validate from './pages/Validate';
+import Sort from './components/Sort';
 
 function App() {
 	const [cart, setCart] = useState(0);
@@ -35,8 +36,10 @@ function App() {
 	return (
 		<Router>
 	      <Navbar cartST={cartST} accountST={accountST} fetchAccount={fetchAccount} showST={showST}/>
-	      <Routes>
+	      <Sort/>
+		  <Routes>
 	        <Route exact path="/" element={ <Home cartST={cartST}/> }/>
+			<Route exact path="/Search" element={ <Home cartST={cartST} isSearching={true}/> }/>
 	        <Route path="/Fruits/:subcategoryId" element={ <Fruits cartST={cartST}/> }/>
 	        <Route path="/Vegetables/:subcategoryId" element={ <Vegetables cartST={cartST}/> }/>
 			<Route path="/Cart" element={ <Cart cartST={cartST} showST={showST}/> }/>

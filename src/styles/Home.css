@@ -67,7 +67,16 @@
 }
 
 .btn-add-cart {
+    padding-top: 7px;
+    padding-bottom: 7px;
     font-size: 15px;
+    background-color: #243f98;
+    color: white;
+    border: 0px;
+}
+
+.btn-add-cart:hover {
+    background-color: #2a4ab4;
 }
 
 @media only screen and (max-width: 992px) {
@@ -105,9 +114,16 @@
 
     .btn-add-cart {
         font-size: 40px;
+        background-color: #243f98;
+        color: white;
+        border: 0px;
     }
 
-    .input-quantity, .btn-number-product {
+    .btn-add-cart:hover {
+        background-color: #2a4ab4;
+    }
+
+    .input-quantity, .button-number-product {
         font-size: 40px;
     }
 
