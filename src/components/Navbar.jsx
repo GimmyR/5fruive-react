@@ -6,6 +6,11 @@ import '../styles/Navbar.css';
 function Navbar({ cartST, accountST, fetchAccount, showST }) {
     const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
+    const [displayNav1, setDisplayNav1] = useState(false);
+    const classes = [
+        "col-lg-7 d-none d-sm-none d-md-none d-lg-flex text-secondary",
+        "d-block d-sm-block d-md-block d-lg-none text-secondary"
+    ];
 
     const fetchBase = function() {
         fetch("http://127.0.0.1:8000/navbar/index", {
@@ -49,7 +54,7 @@ function Navbar({ cartST, accountST, fetchAccount, showST }) {
             <div id="nav-row" className="row d-flex align-items-center">
                 {/* BUTTON TOGGLER */}
                 <div className="col-2 col-sm-2 col-md-2 d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none d-flex justify-content-center">
-                    <button className="btn btn-outline-secondary btn-toggler px-2 py-0 border-0" type="button">
+                    <button onClick={() => setDisplayNav1(!displayNav1)} className="btn btn-outline-secondary btn-toggler px-2 py-0 border-0" type="button">
                         <i className="bi bi-list menu-icon"></i>
                     </button>
                 </div>
@@ -60,7 +65,7 @@ function Navbar({ cartST, accountST, fetchAccount, showST }) {
                 </div>
 
                 {/* NAV #1 */}
-                <div id="nav1" className="col-lg-7 d-none d-sm-none d-md-none d-lg-flex text-secondary">
+                <div id="nav1" className={ displayNav1 ? classes[1] : classes[0] }>
                     <div className="row">
                         {/* HOME */}
                         <div className="col-lg">

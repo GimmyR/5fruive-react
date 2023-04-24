@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import '../styles/Sort.css';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Sort.css';
 
 function Sort() {
     const navigate = useNavigate();
